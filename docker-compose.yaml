@@ -1,0 +1,53 @@
+services:
+  # 主应用
+  app:
+    container_name: nodesboard_app
+    working_dir: /var/www
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./.docker/.data/redis/:/data/
+      - ./source:/var/www/
+    environment:
+      - docker=true
+      - TZ=Asia/Shanghai
+    depends_on:
+      - redis
+      - mysql
+    ports:
+      - "8840:8840"
+      - "8848:8848"
+    restart: always
+    command: php artisan octane:start --server=swoole --host=0.0.0.0 --port=8848
+
+  # redis 
+  redis:
+    image: redis:7-alpine
+    container_name: "nodesboard_redis"
+    command: redis-server --unixsocket /data/redis.sock --unixsocketperm 777
+    restart: unless-stopped
+    volumes:
+      - ./.docker/.data/redis:/data
+    sysctls:
+      net.core.somaxconn: 1024
+    ports:
+      - "6379:6379"
+
+   # MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: "nodesboard_mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nodes_board
+      MYSQL_PASSWORD: root
+    volumes:
+      - laravel_mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+
+volumes:
+  laravel_mysql_data:
+    driver: local
