@@ -24,7 +24,7 @@ COPY ./source/composer.json ./source/composer.lock* ./
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 # 安装 Laravel 依赖，带容错逻辑（第一次失败自动清缓存重试）
-RUN composer install --no-dev --optimize-autoloader --no-interaction || \
+RUN composer install -vvv --no-dev --optimize-autoloader --no-interaction || \
     (composer clear-cache && composer install --no-dev --optimize-autoloader --no-interaction)
 
 # 开放 Octane 默认端口

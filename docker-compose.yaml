@@ -9,6 +9,7 @@ services:
     volumes:
       - ./.docker/.data/redis/:/data/
       - ./source:/var/www/
+      - /var/www/vendor
     environment:
       - docker=true
       - TZ=Asia/Shanghai
