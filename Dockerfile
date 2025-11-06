@@ -28,4 +28,4 @@ RUN composer install -vvv --no-dev --optimize-autoloader --no-interaction || \
     (composer clear-cache && composer install --no-dev --optimize-autoloader --no-interaction)
 
 # 开放 Octane 默认端口
-EXPOSE 8840 8848
+EXPOSE 8848
