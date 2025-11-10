@@ -55,8 +55,8 @@ class CommController extends Controller
             "websiteURL" => config('app.url'),
             "crisptoken" => "5546c6ea-4b1e-41bc-80e4-4b6648cbca76",
             "banners" => [
-                "https://doc.scriptbox.space/imgs/code-tpl.jpg",
-                "https://doc.scriptbox.space/imgs/code-text.jpg"
+                config('app.url')."/vpn-b-1.jpg",
+                config('app.url')."/vpn-b-2.jpg",
             ],
         ];
 
