@@ -13,3 +13,8 @@
 此面板基于xboard二次开发
 
 可直接运行，也可以容器化
+
+安装完成后初始化数据库
+```shell
+php artisan xboard:install
+```
